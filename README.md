@@ -1,6 +1,6 @@
 # Desafio Backend - Itaú Unibanco
 
-Link para o repositório oficial do Desafio: https://github.com/rafaellins-itau/desafio-itau-vaga-99-junior
+Link para o repositório original do Desafio: https://github.com/rafaellins-itau/desafio-itau-vaga-99-junior
 
 Este é um desafio bacana tanto de desenvolvimento de software quanto de engenharia de software. Queremos testar sua capacidade de construir um software com várias partes diferentes funcionando em conjunto!
 
