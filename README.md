@@ -4,6 +4,10 @@ Link para o repositório original do Desafio: https://github.com/rafaellins-itau
 
 Este é um desafio bacana tanto de desenvolvimento de software quanto de engenharia de software. Queremos testar sua capacidade de construir um software com várias partes diferentes funcionando em conjunto!
 
+## Check-list
+Criei um check-list para me ajudar a desenvolver cada etapa do desafio. Você pode consulta-lo aqui:
+https://www.notion.so/Check-List-Desafio-Backend-Ita-1514f4c3dbcf8008acb7d5c62e7cbdab
+
 ## 1. Introdução
 
 Sua missão, caso você aceite, é criar uma API REST que recebe Transações e retorna Estatísticas sob essas transações. Para este desafio, a API deve ser criada utilizando-se de Java ou [Kotlin](https://kotlinlang.org/) e Spring Boot.
