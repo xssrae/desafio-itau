@@ -1,10 +1,6 @@
-package com.itau.desafio_itau.transacoes.entity;
-
-import com.fasterxml.jackson.annotation.JsonTypeId;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+package com.itau.desafio_itau.transacoes;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 

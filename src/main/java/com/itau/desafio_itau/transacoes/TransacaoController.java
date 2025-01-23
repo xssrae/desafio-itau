@@ -1,37 +1,30 @@
-package com.itau.desafio_itau.transacoes.controller;
+package com.itau.desafio_itau.transacoes;
 
-import com.itau.desafio_itau.transacoes.entity.Transacao;
-import com.itau.desafio_itau.transacoes.repository.TransacaoRepository;
-import com.itau.desafio_itau.transacoes.service.TransacoesService;
 import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
-
-import static org.springframework.http.HttpStatus.*;
-import static org.springframework.http.ResponseEntity.status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RestController
-@RequestMapping(value = "/transacao", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/transacao", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TransacaoController {
 
     private static final Logger log = LoggerFactory.getLogger(TransacaoController.class);
-    private TransacoesService transacoesService;
-
+    private final TransacoesService transacoesService;
     private final TransacaoRepository transacaoRepository;
 
-    public TransacaoController(TransacaoRepository transacaoRepository) {
+    public TransacaoController(TransacoesService transacoesService, TransacaoRepository transacaoRepository) {
+        this.transacoesService = transacoesService;
         this.transacaoRepository = transacaoRepository;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> processarTransacao(@RequestBody Transacao transacao) {
         try {
             validarTransacao(transacao);
@@ -52,8 +45,8 @@ public class TransacaoController {
         }
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity limpar() {
+    @DeleteMapping
+    public ResponseEntity<String> limpar() {
         log.info("Limpando Transacoes");
         transacaoRepository.limpar();
         return ResponseEntity
@@ -62,8 +55,20 @@ public class TransacaoController {
     }
 
     @GetMapping
-    List<Transacao> list() {
-        return transacoesService.list();
+    public ResponseEntity<TransacaoResponse> list() {
+        try {
+            List<Transacao> transacoes = transacoesService.list();
+            if (transacoes.isEmpty()) {
+                return ResponseEntity
+                        .ok(new TransacaoResponse("Nenhuma transação realizada"));
+            }
+            return ResponseEntity.ok(new TransacaoResponse(transacoes));
+        } catch (Exception e) {
+            log.error("Erro ao listar transações", e);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new TransacaoResponse("Erro ao buscar transações: " + e.getMessage()));
+        }
     }
 
     private void validarTransacao(Transacao transacao) throws ValidationException {

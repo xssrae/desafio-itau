@@ -1,6 +1,6 @@
 package com.itau.desafio_itau.estatisticas;
 
-import com.itau.desafio_itau.transacoes.entity.Transacao;
+import com.itau.desafio_itau.transacoes.Transacao;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -54,5 +54,5 @@ public class EstatisticaService {
         transacoes.removeIf(transacao ->
                 transacao.getDataHora().isBefore(limiteInferior));
     }
-    
+
 }
