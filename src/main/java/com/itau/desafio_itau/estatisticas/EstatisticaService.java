@@ -1,6 +1,8 @@
 package com.itau.desafio_itau.estatisticas;
 
 import com.itau.desafio_itau.transacoes.Transacao;
+import com.itau.desafio_itau.transacoes.TransacoesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -8,20 +10,17 @@ import java.math.RoundingMode;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 @Service
 public class EstatisticaService {
+    private final TransacoesService transacoesService;
 
-    private final List<Transacao> transacoes = new ArrayList<>();
-
-    public void adicionarTransacao(Transacao transacao) {
-        transacoes.add(transacao);
-        limparTransacoesAntigas();
+    @Autowired
+    public EstatisticaService(TransacoesService transacoesService) {
+        this.transacoesService = transacoesService;
     }
 
-
     public Estatistica calcularEstatisticas() {
-        limparTransacoesAntigas();
+        List<Transacao> transacoes = transacoesService.list();
 
         if (transacoes.isEmpty()) {
             return new Estatistica(0L, BigDecimal.ZERO, BigDecimal.ZERO,
@@ -48,11 +47,4 @@ public class EstatisticaService {
 
         return new Estatistica(count, sum, avg, min, max);
     }
-
-    private void limparTransacoesAntigas() {
-        OffsetDateTime limiteInferior = OffsetDateTime.now().minusSeconds(60);
-        transacoes.removeIf(transacao ->
-                transacao.getDataHora().isBefore(limiteInferior));
-    }
-
 }

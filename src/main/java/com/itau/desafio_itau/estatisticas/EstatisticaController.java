@@ -1,5 +1,7 @@
 package com.itau.desafio_itau.estatisticas;
 
+import com.itau.desafio_itau.transacoes.Transacao;
+import com.itau.desafio_itau.transacoes.TransacoesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ public class EstatisticaController {
 
     @Autowired
     private EstatisticaService estatisticaService;
+    private Transacao transacoes;
 
     @GetMapping
     public ResponseEntity<Estatistica> getEstatisticas() {

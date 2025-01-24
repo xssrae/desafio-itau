@@ -12,16 +12,16 @@ public class TransacaoResponse {
         this.transacoes = Collections.emptyList();
     }
 
+    public TransacaoResponse(List<Transacao> transacoes) {
+        this.transacoes = transacoes != null ? transacoes : Collections.emptyList();
+        this.mensagem = null;
+    }
+
     public List<Transacao> getTransacoes() {
         return transacoes;
     }
-    public void setTransacoes(List<Transacao> transacoes) {
-        this.transacoes = transacoes;
-    }
+
     public String getMensagem() {
         return mensagem;
-    }
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
     }
 }
