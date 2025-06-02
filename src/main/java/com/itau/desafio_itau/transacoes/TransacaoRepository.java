@@ -2,6 +2,7 @@ package com.itau.desafio_itau.transacoes;
 
 import org.springframework.stereotype.Repository;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,16 +16,25 @@ public class TransacaoRepository {
         transacoes.add(transacao);
     }
 
-    public List<Transacao> findAll() {
-        return new ArrayList<>(transacoes);  // retorna uma cópia da lista
+    public List<Transacao> list() {
+        return new ArrayList<>(transacoes);
     }
 
-    public void deleteById(Long id) {
-        transacoes.removeIf(t -> t.getId().equals(id));
+    public void delete() {
+        transacoes.clear();
     }
 
     public void limpar() {
         transacoes.clear();
-        nextId = 1L;
+    }
+
+    public void removerAntigas(OffsetDateTime limite) {
+        transacoes.removeIf( transacao -> {
+            boolean antiga = transacao.getDataHora() != null && transacao.getDataHora().isBefore(limite);
+            if (antiga) {
+                System.out.println("Removendo transação antiga: " + transacao.getId() + " - " + transacao.getDataHora());
+            }
+            return antiga;
+        });
     }
 }

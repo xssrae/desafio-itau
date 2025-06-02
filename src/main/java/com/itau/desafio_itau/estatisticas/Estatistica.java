@@ -8,12 +8,12 @@ public class Estatistica {
     private BigDecimal min;
     private BigDecimal max;
 
-    public Estatistica(Long count, BigDecimal sum, BigDecimal avg, BigDecimal max, BigDecimal min) {
+    public Estatistica(Long count, BigDecimal sum, BigDecimal avg, BigDecimal min, BigDecimal max) {
         this.count = count;
         this.sum = sum;
         this.avg = avg;
-        this.max = max;
         this.min = min;
+        this.max = max;
     }
 
     public Long getCount() {
@@ -47,3 +47,4 @@ public class Estatistica {
         this.max = max;
     }
 }
+

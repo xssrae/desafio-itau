@@ -2,6 +2,8 @@ package com.itau.desafio_itau.transacoes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,23 +18,23 @@ public class TransacoesService {
         this.transacaoRepository = transacaoRepository;
     }
 
-
     public List<Transacao> create(Transacao transacao) {
         transacaoRepository.add(transacao);
         return list();
     }
 
     public List<Transacao> list() {
-        List<Transacao> transacoes = transacaoRepository.findAll();
-        return transacoes.stream()
-                .sorted(Comparator.comparing(Transacao::getId).reversed()
-                        .thenComparing(Transacao::getValor))
+        OffsetDateTime limite = OffsetDateTime.now().minusMinutes(5);
+
+        // Filtra transações que ocorreram nos últimos 5 minutos
+        return transacaoRepository.list().stream()
+                .filter(transacao -> transacao.getDataHora() != null && !transacao.getDataHora().isBefore(limite))
                 .collect(Collectors.toList());
     }
 
-    public List<Transacao> delete(Long id) {
-        transacaoRepository.deleteById(id);
-        return list();
+    // Remove transações que ocorreram nos ultimos 5 minutos
+    public void removerTransacoesAntigas() {
+        OffsetDateTime limite = OffsetDateTime.now().minusMinutes(5);
+        transacaoRepository.removerAntigas(limite);
     }
-
 }

@@ -29,6 +29,8 @@ public class TransacaoController {
         try {
             validarTransacao(transacao);
             transacaoRepository.add(transacao);
+            transacoesService.removerTransacoesAntigas();
+
             return ResponseEntity
                     .status(HttpStatus.CREATED).body("Transação enviada com sucesso");
 
