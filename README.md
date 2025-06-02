@@ -7,7 +7,11 @@ Este é um desafio bacana tanto de desenvolvimento de software quanto de engenha
 ## Check-list
 Criei um check-list para me ajudar a desenvolver cada etapa do desafio. Você pode consulta-lo aqui: [Check List - Desafio Backend Itaú - Rae](https://sandy-morocco-0da.notion.site/Check-List-Desafio-Backend-Ita-1514f4c3dbcf8008acb7d5c62e7cbdab?pvs=4)
 
+## Swagger
+Ao rodar o projeto, você conseguirá ter acesso a API documentada no link:
+http://localhost:8081/swagger-ui/index.html
 
+---
 ## 1. Introdução
 
 Sua missão, caso você aceite, é criar uma API REST que recebe Transações e retorna Estatísticas sob essas transações. Para este desafio, a API deve ser criada utilizando-se de Java ou [Kotlin](https://kotlinlang.org/) e Spring Boot.

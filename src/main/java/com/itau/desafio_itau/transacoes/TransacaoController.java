@@ -41,7 +41,6 @@ public class TransacaoController {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("Erro ao processar transação: " + e.getMessage());
-
         }
     }
 
@@ -76,11 +75,8 @@ public class TransacaoController {
             throw new ValidationException("O valor da transação deve ser maior que zero");
         }
 
-        if (transacao.getDataHora() != null &&
-                transacao.getDataHora().isAfter(OffsetDateTime.now())) {
+        if (transacao.getDataHora() != null && transacao.getDataHora().isAfter(OffsetDateTime.now())) {
             throw new ValidationException("A data da transação não pode ser futura");
         }
-
     }
-
 }
